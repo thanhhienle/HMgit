@@ -117,20 +117,22 @@ public class Booking {
 		ResultSet rs1 = queryDB.selectData(sql2, conn);
 		int id = 0;
 		try {
-			while (rs1.next()) {
-				id = rs1.getInt(1);
-			}			
+			rs1.next();
+			id = rs1.getInt(1);			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		//Add data to ReservationDetail in Database
+		//Add data to ReservationDetail and Update RoomStatus in Database
 		int n = reserList.size();
 		for (int i = 0; i < n; i++) {
 			Reservation reser = reserList.get(i);
 			String sql3 = "INSERT INTO ReservationDetail (ReservationID,RoomID,Payment)"
 					+ " VALUES ('"+id+"','"+reser.getRoomId()+"','"+reser.getCost()+"')";
+			queryDB.updateData(sql3, conn);
+			
+			sql3 = "UPDATE Room SET RoomStatus = 'Booked' WHERE RoomID = "+reser.getRoomId();
 			queryDB.updateData(sql3, conn);
 		}
 		
@@ -146,9 +148,7 @@ public class Booking {
 			System.out.format("%20s |", reser.getChecoutDate());
 			System.out.format("%10s%n", reser.getCost());
 		}
-		System.out.println("Total Cost: " + totalCost);
-		
-		
+		System.out.println("Total Cost: " + totalCost);		
 		                                            
 	}
 }

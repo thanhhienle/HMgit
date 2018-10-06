@@ -39,6 +39,8 @@ public class Login {
 					System.out.println("Wrong user or password, try again!");
 					isExisted = true;
 				} else {
+					
+					//Check are UserName and Password are right?
 					if (user.equalsIgnoreCase(rs.getString("UserName")) && pass.equalsIgnoreCase(rs.getString("Pass"))) {
 						System.out.println("Login successful");
 						roleId = rs.getInt("RoleID");
@@ -52,8 +54,9 @@ public class Login {
 				e.printStackTrace();
 				System.out.println("error");
 			}
-		} while(isExisted);		
+		} while(isExisted);	
 		
+		//Return Account that was signed in: user, pass, roleId
 		return acc;
 	}
 }

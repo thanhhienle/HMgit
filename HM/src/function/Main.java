@@ -22,30 +22,64 @@ public class Main {
 
 	private static Scanner scan = new Scanner(System.in);
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-//		ConnectorDB.getServerConnection();
-//		Login login = new Login();		
-//		Account acc = login.getLogin();
 		
-//		System.out.println(acc.getUserName());
+		System.out.println("Welcome to Hotel Management!");
 		
-//		Register register = new Register();
-//		register.signUp();
-//		Connection conn = ConnectorDB.getServerConnection();
-//		String user = "cus01";
-//		String pass = "1234";
-//		QueryDB query = new QueryDB();
-	
-//		String line = "20181221";
-//		String pattern = "(20)\\d\\d(0[1-9]|1[012])(0[1-9]|[12][0-9]|3[01])";
-//		Pattern pat = Pattern.compile(pattern);
-//		Matcher mat = pat.matcher(line);		
-//		System.out.println(mat.matches() ? "ok" : "no"); 
+		boolean exit = false;
+		Account account = null;
+		Login login = new Login();
+		Register register = new Register();
+//		Booking bookingRoom = new Booking();
+		Menu menu = new Menu();
+		CustomerController cusCont = new CustomerController();
 		
-		Account acc = new Account();
-		Booking book = new Booking();
-		book.booking(acc);
-	
+		String choose = null;
+		
+		menu.homeMenu();
+		while(true) {
+			choose = scan.nextLine();
+			switch(choose) {
+			
+			//Login account
+			case "1":
+				account = login.getLogin();
+			
+				switch(account.getRoleId()) {
+				//Account is a customer
+				case 1:
+					cusCont.cusControl(account);					
+					break;
+				//Account is a hotel clerk
+				case 2:
+					System.out.println("Hello clerk");
+					break;
+				//Account is a admin
+				case 3:
+					System.out.println("Hello admin");
+					break;
+				}
+				
+				break;
+				
+			//Register account
+			case "2":
+				account = register.signUp();
+				cusCont.cusControl(account);
+				break;
+			//Exit system
+			case "3":
+				System.out.println("Exited");
+				exit = true;
+				break;
+			default:
+				System.out.println("Invalid! Try again");
+				break;
+			}
+			if(exit)
+				break;
+			menu.homeMenu();
+		}
+		
 	}
 
 }

@@ -1,8 +1,8 @@
 package function;
 
 public class Menu {
-	public static void homeMenu() {
-		System.out.println("Welcome to Hotel Management!");
+	public void homeMenu() {
+		System.out.println("Please type a number to choose your action");
 		System.out.println("---------------------------");
 		System.out.println("1. Login");
 		System.out.println("2. Register");
@@ -10,15 +10,14 @@ public class Menu {
 		System.out.println("---------------------------");
 	}
 	
-	public static void customerMenu() {
+	public void customerMenu() {
 		System.out.println("---------------------------");
 		System.out.println("1. Booking rooms");
-		System.out.println("2. Your bills");
-		System.out.println("3. Logout");
+		System.out.println("2. Logout");
 		System.out.println("---------------------------");
 	}
 	
-	public static void clerkMenu() {
+	public void clerkMenu() {
 		System.out.println("---------------------------");
 		System.out.println("1. View all rooms");
 		System.out.println("2. Search / filter rooms");
@@ -26,7 +25,7 @@ public class Menu {
 		System.out.println("---------------------------");
 	}
 	
-	public static void adminMenu() {
+	public void adminMenu() {
 		System.out.println("---------------------------");
 		System.out.println("1. Create new user");
 		System.out.println("2. Set role");

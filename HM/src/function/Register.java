@@ -15,11 +15,14 @@ public class Register {
 	private ArrayList<Account> accountList = new ArrayList<>();
 	private QueryDB queryDB;
 	private Connection conn;
+	private Account acc;
 	
- 	public void signUp() {
+ 	public Account signUp() {
 		
 		conn = ConnectorDB.getServerConnection();
 		queryDB = new QueryDB();
+		
+		//Create List containing accounts from Database
  		String sql = "Select UserName, Pass, RoleID From Account";
  		ResultSet rs = queryDB.selectData(sql, conn);
  		try {
@@ -34,7 +37,7 @@ public class Register {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
- 		System.out.println(accountList.size());
+ 		
 		Account tempAcc = null;
 		String cusId = null;
 		String pass = null;
@@ -42,6 +45,8 @@ public class Register {
 		String cusAdd = null;
 		String cusPhone = null;
 		String cusEmail = null;
+		
+		//Input information and Check valid UserName
 		do {
 			System.out.println("Input your information to regis");
 			System.out.print("CustomerID: ");
@@ -65,45 +70,21 @@ public class Register {
 
 		} while (accountList.contains(tempAcc));
 		
+		//Create an account object
+		acc = new Account(cusId, pass, 1);
+		
+		//Add new account to Database
 		String sql2 = "INSERT INTO Account (UserName, Pass, RoleID)"
 				+ " VALUES ('"+cusId+"','"+pass+"',1)";
 		queryDB.updateData(sql2, conn);	
 		
+		//Add new customer to Database
 		String sql3 = "INSERT INTO Customer (CustomerID,CustomerUser,CusName,CusAddress,Phone,Email)"
 				+ " VALUES ('"+cusId+"','"+cusId+"','"+cusName+"','"+cusAdd+"','"+cusPhone+"','"+cusEmail+"')";
 		queryDB.updateData(sql3, conn);
 		
+		System.out.println("Register successfully");
 		
-//		try {
-//		
-//		String sql = "Insert into Account (UserName, Pass, RoleID) Values (?, ?, ?)";
-//		
-//		PreparedStatement pstm = conn.prepareStatement(sql);
-//		pstm.setString(1, cusId);
-//		pstm.setString(2, pass);
-//		pstm.setInt(3, 1);
-//		
-//		pstm.executeUpdate();
-//		
-//		sql = "Insert into Customer (CustomerID, CustomerUser, CusName, CusAddress, Phone, Email)"
-//				+ "Values (?, ?, ?, ?, ?, ?)";
-//		pstm = conn.prepareStatement(sql);
-//		pstm.setString(1, cusId);
-//		pstm.setString(2, cusId);
-//		pstm.setString(3, cusName);
-//		pstm.setString(4, cusAdd);
-//		pstm.setString(5, cusPhone);
-//		pstm.setString(6, cusEmail);
-//		
-//		pstm.executeUpdate();			
-//		
-//		System.out.println("Successfull Register");
-//				
-//		check = false;
-//		
-//	} catch (SQLException e) {
-//		System.out.println("CustomerID existed, please choose another ID");
-////		e.printStackTrace();			
-//	}
+		return acc;
 	}
 }
