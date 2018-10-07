@@ -13,7 +13,7 @@ public class Menu {
 	public void customerMenu() {
 		System.out.println("---------------------------");
 		System.out.println("1. Booking rooms");
-		System.out.println("2. Logout");
+		System.out.println("0. Logout");
 		System.out.println("---------------------------");
 	}
 	
@@ -22,6 +22,7 @@ public class Menu {
 		System.out.println("1. View all rooms");
 		System.out.println("2. Search / filter rooms");
 		System.out.println("3. Update status of rooms");
+		System.out.println("0. Logout");
 		System.out.println("---------------------------");
 	}
 	
@@ -32,6 +33,7 @@ public class Menu {
 		System.out.println("3. View all users");
 		System.out.println("4. Search / filter user");
 		System.out.println("5. Update user information");
+		System.out.println("0. Logout");
 		System.out.println("---------------------------");
 	}
 }

@@ -13,7 +13,9 @@ import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import clerk.ClerkController;
 import customer.Booking;
+import customer.CustomerController;
 import entity.Account;
 import unitfunc.MinusDate;
 import unitfunc.QueryDB;
@@ -32,6 +34,7 @@ public class Main {
 //		Booking bookingRoom = new Booking();
 		Menu menu = new Menu();
 		CustomerController cusCont = new CustomerController();
+		ClerkController clerkCont = new ClerkController();
 		
 		String choose = null;
 		
@@ -51,7 +54,7 @@ public class Main {
 					break;
 				//Account is a hotel clerk
 				case 2:
-					System.out.println("Hello clerk");
+					clerkCont.clerkControl(account);
 					break;
 				//Account is a admin
 				case 3:
